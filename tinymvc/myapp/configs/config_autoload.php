@@ -5,8 +5,8 @@
  *
  * application auto-loaded plugin configuration
  *
- * @package		TinyMVC
- * @author		Monte Ohrt
+ * @package		JooX 2.0
+ * @author		Christoffer Bubach
  */
 
 

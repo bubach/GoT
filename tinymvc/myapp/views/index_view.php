@@ -1,72 +1,531 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/strict.dtd">
+
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Welcome to TinyMVC!</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-		<style type="text/css">
-			body {
-			  background:#9dbde1 url(http://www.tinymvc.com/images/bg-gradient.gif) top repeat-x;
-				color:							#666666;
-				font-family:				arial, sans;
-				font-size:					100%;
-				line-height:				1.7em;
-				margin:							0 auto;
-				text-align:         center;
-				width:              500px;
-			}
+<head>
+    <title>index</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/css/global.css" />
+    <link type="text/css" rel="stylesheet" href="/css/color-button.css" />
+    <!-- js Boots_from -->
+    <script src="/js/zepto.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/custom.js"></script>
+    <script src="http://jwpsrv.com/library/MzPsrL5mEeOY5CIACrqE1A.js"></script>
+    <!-- end Boots_from -->
+</head>
 
-			h1 {
-				font-size: 					2.18em;
-				letter-spacing:			-0.01em;
-			}			
-			
-			a:link {
-				color:							#134c8c;
-			}
+<body data-spy="scroll" data-target=".subnav" data-offset="50" data-twttr-rendered="true">
 
-			a:visited {
-				color:							#666666;
-			}
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="#">
+                <img src="/img/logo.gif" alt="JooX.net - v2.0" />
+            </a>
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="element.html">Element</a></li>
+                    <li><a href="detail.html">Detail</a></li>
+                    <li><a href="pricing-plans.html">Pricing Plans</a></li>
+                    <li><a href="grid-layout.html">Grid Layout</a></li>
 
-      .code {
-        text-align:         left;
-      	margin:             0 0 1.5em 0;
-      	font-size:          1.0em;
-      	border:             1px solid #134c8c;
-      	background-color:   #cae3ff;
-      	color:              #c44242;
-      	padding:            .2em 1em .4em;
-      }
-			
-			#bottom {
-				border-top:					1px solid #134c8c;
-				margin-top:					1em;
-				padding-top:				1em;
-				font-size:          0.8em;
-			}
-		</style>
-	</head>
-	<body>
-		
-	  <h1>Welcome to TinyMVC!</h1>
-		
-		<p>This is TinyMVC version <?=TMVC_VERSION?>.</p>
-		<p>The view file for this page is here:</p>
+                    <li class="divider-vertical"></li>
 
-		<div class="code">tinymvc/myapp/views/index_view.php</div>
+                    <li class="avatar_small"><a href="account.html"></a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            john doe
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="profile.html">
+                                    <i class="icon-user"></i>
+                                    Account Setting  </a>
+                            </li>
+                            <li>
+                                <a href="setting.html">
+                                    <i class="icon-lock"></i> Change Password</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="login.html"><i class="icon-off"></i> Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end navbar -->
+<div class="main">
+    <div class="container">
+        <div class="row">
+            <div class="box-wrapper span12">
+                <div class="widget">
+                    <div class="wrapper-search">
+                        <form class="form-inline form-search border-rd4">
+                            <input placeholder="Type somethings to search .." type="text" class="box-text">
+                            <a href="#"class="btn-search"></a>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- end box-wrapper -->
+        </div>
+        <div class="row">
+            <div class="box-wrapper  span12">
+                
+                <div class="row">
+                    <div class="title span12">
+                        <h3 class="pull-left">Lorem ipsum dolor ...</h3>
+                        <div class="sort pull-right dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Most Viewed
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="icon-tag"></i>By Name</a></li>
+                                <li><a href="#"><i class="icon-list"></i>List</a></li>
+                                <li><a href="#"><i class="icon-eye-open"></i>View</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- end title -->
+                </div>
+                <ul class="thumbnails thumbnails-horizontal">
+                    <li class="span3">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj1.jpg">
+                            </div>
+                            <h5><a href="detail.html">Lorem ipsum dolor sit  </a></h5>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li class="span3">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj2.jpg">
+                            </div>
+                            <h5><a href="detail.html">Lorem ipsum dolor sit </a></h5>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li class="span3">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj3.jpg">
+                            </div>
+                            <h5><a href="detail.html">Lorem ipsum dolor sit </a></h5>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li class="span3">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj4.jpg">
+                            </div>
+                            <h5><a href="detail.html">Lorem ipsum dolor sit </a></h5>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
 
-		<p>The controller for this page is here:</p>
+                    <li class="span3">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj5.jpg">
+                            </div>
+                            <h5><a href="detail.html">Lorem ipsum dolor sit </a></h5>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
 
-		<div class="code">tinymvc/myapp/controller/index.php</div>
-		
-		Let's get started, head to the <a href="http://www.tinymvc.com/wiki/index.php/Documentation">documentation</a>!
-		
-		<div id="bottom	">
-			<a href="http://www.tinymvc.com/">TinyMVC</a> is licensed under the GNU <a rel="license" href="http://www.gnu.org/licenses/lgpl.html">LGPL</a> license.
-		<br />
-		<span style="font-size: 0.8em">This page was rendered in {TMVC_TIMER} seconds.</span>
-		</div>
-	</body>
+                    <li class="span3">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj6.jpg">
+                            </div>
+                            <h5><a href="detail.html">Lorem ipsum dolor sit </a></h5>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="span3">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj7.jpg">
+                            </div>
+                            <h5><a href="detail.html">Lorem ipsum dolor sit </a></h5>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="span3">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj8.jpg">
+                            </div>
+                            <h5><a href="detail.html">Lorem ipsum dolor sit </a></h5>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="row">
+                    <div class="span12">
+                        <div class="navigation pagination pull-right">
+                            <ul>
+                                <li><a href="#">←</a></li>
+                                <li><a class="active" href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">→</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- end navigation -->
+                </div>
+            </div><!-- end  -->
+            <!-- **************** start All Flie  ****************** -->
+            <div class="box-wrapper span10">
+                <div class="row">
+                    <div class="title span10">
+                        <h3 class="pull-left">Lorem ipsum dolor ...</h3>
+                        <div class="sort pull-right dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Most Viewed
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="icon-tag"></i>By Name</a></li>
+                                <li><a href="#"><i class="icon-list"></i>List</a></li>
+                                <li><a href="#"><i class="icon-eye-open"></i>View</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- end title -->
+                </div>
+                <ul class="thumbnails thumbnails-vertical">
+                    <li class="span5">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj1.jpg">
+                            </div>
+                            <div class="thumbnail-content-left">
+                                <h5><a href="detail.html">Lorem ipsum dolor sit amet ... </a></h5>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit magna aliqua.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li class="span5">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj2.jpg">
+                            </div>
+                            <div class="thumbnail-content-left">
+                                <h5><a href="detail.html">Lorem ipsum dolor sit amet ... </a></h5>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit magna aliqua.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li class="span5">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj3.jpg">
+                            </div>
+                            <div class="thumbnail-content-left">
+                                <h5><a href="detail.html">Lorem ipsum dolor sit amet ... </a></h5>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit magna aliqua.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li class="span5">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj4.jpg">
+                            </div>
+                            <div class="thumbnail-content-left">
+                                <h5><a href="detail.html">Lorem ipsum dolor sit amet ... </a></h5>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit magna aliqua.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="span5">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj5.jpg">
+                            </div>
+                            <div class="thumbnail-content-left">
+                                <h5><a href="detail.html">Lorem ipsum dolor sit amet ... </a></h5>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit magna aliqua.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="span5">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj6.jpg">
+                            </div>
+                            <div class="thumbnail-content-left">
+                                <h5><a href="detail.html">Lorem ipsum dolor sit amet ... </a></h5>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit magna aliqua.
+                                    
+                                </p>
+                            </div>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="span5">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj7.jpg">
+                            </div>
+                            <div class="thumbnail-content-left">
+                                <h5><a href="detail.html">Lorem ipsum dolor sit ... </a></h5>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit magna aliqua.
+                                    
+                                </p>
+                            </div>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="span5">
+                        <div class="thumbnail border-radius-top">
+                            <div class="bg-thumbnail-img">
+                                <a class="overlay" href="detail.html">
+                                    <img src="assets/img/icons/play.png">
+                                </a>
+                                <img class="border-radius-top" src="assets/img/project/pj8.jpg">
+                            </div>
+                            <div class="thumbnail-content-left">
+                                <h5><a href="detail.html">Lorem ipsum dolor sit amet, consectetur adipisicing </a></h5>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="box border-radius-bottom">
+                            <p>
+                                <span class="title_torrent pull-left">Movie</span>
+                                <span class="number-view pull-right"><i class="icon-white icon-eye-open"></i>1,444,898</span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="row">
+                    <div class="span10">
+                        <div class="navigation pagination pull-right">
+                            <ul>
+                                <li><a href="#">←</a></li>
+                                <li><a class="active" href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">→</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- end navigation -->
+                </div>
+            </div><!-- end  -->
+            <div class="row">
+                <div class="list-menu box-wrapper span2">
+                    <div class="row">
+                        <div class="title bg-title span2">
+                            <h3>List menu</h3>
+                        </div>
+                    </div>
+                    <ul class="nav nav-list">
+                        <li><a href="index.html"><i class="icon-home"></i>Home</a></li>
+                        <li class="active"><a href="#"><i class="icon-book"></i>Detail</a></li>
+                        <li><a href="#"><i class="icon-list"></i>List Menu</a></li>
+                        <li><a href="#"><i class="icon-list-alt"></i>List Alt Menu</a></li>
+                    </ul>
+                </div>
+            </div><!-- row -->
+            <!-- **************** end All Flie  ****************** -->
+        </div><!-- row -->
+                
+    </div><!-- end container -->
+</div><!-- end main -->
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="span6 logo-vt">
+                <a class="brand" href="#">
+                    <img src="/img/logo.gif" alt="JooX.net - v2.0" />
+                </a>
+                <span class="coppy_right">
+                    <p>Lorem ipsum dolor sit </p>
+                    <p>@2012 All Rights Reserved.</p>
+                </span>
+            </div>
+            <div class="span2">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Contact</li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">About</a></li>
+                    <li>84.903.197.895</li>
+                </ul>
+            </div>
+            <div class="span2">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Blog</li>
+                    <li><a href="#">Regulation</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="span2">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Follow Us</li>
+                    <li><a href="#"><i class="twitter"></i>Twitter</a></li>
+                    <li><a href="#"><i class="facebook"></i>Facebook</a></li>
+                    <li><a href="#"><i class="dd"></i>Forum</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end footer -->
+</body>
 </html>
-
-

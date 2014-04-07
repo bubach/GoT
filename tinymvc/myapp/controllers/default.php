@@ -5,16 +5,16 @@
  *
  * default application controller
  *
- * @package		TinyMVC
- * @author		Monte Ohrt
+ * @package		JooX 2.0
+ * @author		Christoffer Bubach
  */
 
-class Default_Controller extends TinyMVC_Controller
-{
-  function index()
-  {
-    $this->view->display('index_view');
-  }
+class Default_Controller extends TinyMVC_Controller {
+
+	function index() {
+		$this->view->display('index_view');
+	}
+
 }
 
 ?>

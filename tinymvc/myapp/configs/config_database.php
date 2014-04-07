@@ -5,16 +5,16 @@
  *
  * application database configuration
  *
- * @package		TinyMVC
- * @author		Monte Ohrt
+ * @package		JooX 2.0
+ * @author		Christoffer Bubach
  */
 
 $config['default']['plugin'] = 'TinyMVC_PDO'; // plugin for db access
-$config['default']['type'] = 'mysql';      // connection type
-$config['default']['host'] = 'localhost';  // db hostname
-$config['default']['name'] = 'dbname';     // db name
-$config['default']['user'] = 'dbuser';     // db username
-$config['default']['pass'] = 'dbpass';     // db password
-$config['default']['persistent'] = false;  // db connection persistence?
+$config['default']['type'] = 'mysql';         // connection type
+$config['default']['host'] = 'localhost';     // db hostname
+$config['default']['name'] = 'joox';          // db name
+$config['default']['user'] = 'root';          // db username
+$config['default']['pass'] = '';              // db password
+$config['default']['persistent'] = false;     // db connection persistence?
 
 ?>

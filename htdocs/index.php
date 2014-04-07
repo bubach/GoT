@@ -1,11 +1,11 @@
 <?php
 
 /***
- * Name:       TinyMVC
- * About:      An MVC application framework for PHP
- * Copyright:  (C) 2007, New Digital Group Inc.
- * Author:     Monte Ohrt, monte [at] ohrt [dot] com
- * License:    LGPL, see included license file  
+ * Name:       JooX 2.0
+ * About:      Streaming platform built on TinyMVC
+ * Copyright:  (C) 2007-2014, Joox ltd.
+ * Author:     Christoffer Bubach
+ * License:    Public Domain and LGPL for the MVC
  ***/
 
 /* PHP error reporting level, if different from default */

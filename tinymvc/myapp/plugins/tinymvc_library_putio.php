@@ -36,7 +36,8 @@ class TinyMVC_Library_PutIO {
         $this->contextOptions['ssl']['cafile'] = __DIR__ . '/Certificates/StarfieldSecureCertificationAuthority.crt';
 
         $return = $controller->httpcall->httpCall($url, $data, "GET", "", $this->contextOptions);
-        return json_decode($return['content'], TRUE)['files'];
+        $tmpRes = json_decode($return['content'], TRUE);
+        return $tmpRes['files'];
     }
 
     function getFileInfo($fileId) {
@@ -47,7 +48,8 @@ class TinyMVC_Library_PutIO {
 
         $this->contextOptions['ssl']['cafile'] = __DIR__ . '/Certificates/StarfieldSecureCertificationAuthority.crt';
         $return = $controller->httpcall->httpCall($url, $data, "GET", "", $this->contextOptions);
-        return json_decode($return['content'], TRUE)['file'];
+        $tmpRes = json_decode($return['content'], TRUE);
+        return $tmpRes['file'];
     }
 
     function getFileUrl($fileId, $attachment = 0) {
@@ -79,7 +81,8 @@ class TinyMVC_Library_PutIO {
 
         $this->contextOptions['ssl']['cafile'] = __DIR__ . '/Certificates/StarfieldSecureCertificationAuthority.crt';
         $return = $controller->httpcall->httpCall($url, $data, "GET", "", $this->contextOptions);
-        return json_decode($return['content'], TRUE)['files'];
+        $tmpRes = json_decode($return['content'], TRUE);
+        return $tmpRes['files'];
     }
 
 }

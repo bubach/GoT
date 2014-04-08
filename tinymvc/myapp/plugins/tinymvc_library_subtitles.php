@@ -31,10 +31,16 @@ class TinyMVC_Library_Subtitles {
                 $foundOne = TRUE;
 
                 while (strlen($html) && $foundOne) {
-                    $result = $this->controller->httpcall->extractBetweenDelimeters($html, ",'/sv/subtitles/", "/short-on'", 1);
+                    $result = $this->controller->httpcall->extractBetweenDelimeters($html, 'onclick="servOC(', "/short-on', '#DCF2B8')", 1);
 
                     if (!empty($result['extracted'])) {
-                        $url = "http://www.opensubtitles.org/sv/subtitles/".$result['extracted']."/short-on";
+                        $newRes = $this->controller->httpcall->extractBetweenDelimeters($result['extracted'], "'/sv/subtitles/", "");
+                        if (strlen($newRes) < 1) {
+                            $foundOne = FALSE;
+                            break;
+                        }
+
+                        $url = "http://www.opensubtitles.org/sv/subtitles/".$newRes."/short-on";
                         $return  = $this->controller->httpcall->httpCall($url, array(), "GET", "");
                         $newHtml = $return['content'];
 

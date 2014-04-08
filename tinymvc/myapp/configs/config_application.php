@@ -11,8 +11,14 @@
 
  
 /* URL routing, use preg_replace() compatible syntax */
-$config['routing']['search'] =  array();
-$config['routing']['replace'] = array();
+$config['routing']['search']  = array(
+                                    '!/view/(\d+)!',
+                                    '!/getSubtitle/(\d+)(.)vtt!'
+                                );
+$config['routing']['replace'] = array(
+                                    '/default/view/${1}',
+                                    '/default/getSubtitle/${1}'
+                                );
  
 /* set this to force controller and method instead of using URL params */
 $config['root_controller'] = null;

@@ -9,6 +9,8 @@
  ***/
 
 /* PHP error reporting level, if different from default */
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
 error_reporting(E_ALL);
 
 /* if the /tinymvc/ dir is not up one directory, uncomment and set here */

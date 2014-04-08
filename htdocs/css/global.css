@@ -337,7 +337,7 @@ border-bottom-color: #999;
 }
 .thumbnails .bg-thumbnail-img {
 	width:200px;
-	height:160px;
+	height:113px;
 	text-align:center;
 	margin:5px 0px 10px 6px;
 	float:left;
@@ -350,7 +350,7 @@ border-bottom-color: #999;
 	width:50px;
 	height:50px;
 	position:absolute;
-	top:60px;
+	top:35px;
 	left:80px;
 }
 .thumbnails-horizontal .thumbnail,.thumbnails-vertical .thumbnail{
@@ -365,7 +365,7 @@ border-bottom-color: #999;
 }
 .thumbnails-horizontal img{
 	width:200px;
-	height:160px;
+	height:113px;
 }
 .thumbnails .box{
 	padding:10px 10px 3px;
@@ -940,4 +940,22 @@ code {
 }
 .plan-container {
 	* margin:0px 0.4%;
+}
+
+/********************* minor overrides *****************************************/
+.navbar .nav.pull-right {
+	margin-top: 15px;
+}
+.navbar-fixed-top {
+	height: 60px;
+}
+.main {
+    padding: 90px 0px 30px 0px;
+}
+#playerContainer img {
+	width: 100%;
+}
+#playerContainer_logo {
+	display: none;
+	z-index: -1000;
 }

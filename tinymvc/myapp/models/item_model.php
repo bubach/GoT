@@ -26,7 +26,7 @@ class Item_Model extends TinyMVC_Model {
     }
 
     function getItemData($itemId) {
-        $data       = $this->controller->putio->getFileInfo($itemId);
+        $data = $this->controller->putio->getFileInfo($itemId);
 
         $outputData = array(
             'fileName'  => $data['name'],

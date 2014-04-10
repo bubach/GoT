@@ -48,6 +48,10 @@ class TinyMVC_Library_PutIO {
 
         $this->contextOptions['ssl']['cafile'] = __DIR__ . '/Certificates/StarfieldSecureCertificationAuthority.crt';
         $return = $controller->httpcall->httpCall($url, $data, "GET", "", $this->contextOptions);
+
+        if (!array_key_exists('content', $return)) {
+            return false;
+        }
         $tmpRes = json_decode($return['content'], TRUE);
         return $tmpRes['file'];
     }
@@ -60,6 +64,7 @@ class TinyMVC_Library_PutIO {
 
         $this->contextOptions['ssl']['cafile'] = __DIR__ . '/Certificates/StarfieldSecureCertificationAuthority.crt';
         $return  = $controller->httpcall->httpCall($url, $data, "GET", "", $this->contextOptions);
+
         $fileUrl = $controller->httpcall->extractBetweenDelimeters($return['headers'][6], "Location: ", "");
         if ($attachment == 0) {
             return str_replace("attachment=1", "attachment=0", $fileUrl);

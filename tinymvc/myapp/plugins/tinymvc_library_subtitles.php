@@ -29,8 +29,10 @@ class TinyMVC_Library_Subtitles {
             if (strpos($html, '<table id="search_results">') !== FALSE) {
                 $html = $this->controller->httpcall->extractBetweenDelimeters($html, '<table id="search_results">', '<div class="footer upfooter">');
                 $foundOne = TRUE;
+                $count = 0;
 
-                while (strlen($html) && $foundOne) {
+                while (strlen($html) && $foundOne && $count < 5) {
+                    $count++;
                     $result = $this->controller->httpcall->extractBetweenDelimeters($html, 'onclick="servOC(', "/short-on', '#DCF2B8')", 1);
 
                     if (!empty($result['extracted'])) {

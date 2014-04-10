@@ -31,13 +31,114 @@ class TinyMVC_Library_HTTPCall {
         $streamData['http']['header']  = "Connection: close\r\n";
         $streamData['http']['header'] .= "Content-Type: application/x-www-form-urlencoded\r\n";
         $streamData['http']['header'] .= "Content-Length: ".$dataLen."\r\n";
-        $streamData['http']['header'] .= $extraHeaders;
+        if (!empty($extraHeaders)) {
+            $streamData['http']['header'] .= $extraHeaders;
+        }
         $streamData['http']['content'] = $dataUrl;
 
-        return array (
-            'content' => @file_get_contents($url, false, stream_context_create($streamData)),
-            'headers' => $http_response_header
-        );
+        $content = $this->url_get_contents($url, $streamData);
+        return $content;
+    }
+
+    /**
+     * Custom url_get_contents() for fallback
+     * 
+     * @param string $url       The url to open
+     * @param array  $context   Call context settings
+     * @return string
+     *
+    **/
+    function url_get_contents($url, $context) {
+
+        if (function_exists('file_get_contents') && ini_get('allow_url_fopen')) {
+            $content = file_get_contents($url, false, stream_context_create($context));
+            $headers = $http_response_header;
+        } elseif (function_exists('curl_exec')) {
+
+            if ($this->array_search_inner($context, 'verify_peer', true)) {
+                $options[CURLOPT_SSL_VERIFYPEER] = true;
+                $options[CURLOPT_SSL_VERIFYHOST] = 2;
+            } else {
+                $options[CURLOPT_SSL_VERIFYPEER] = false;
+                $options[CURLOPT_SSL_VERIFYHOST] = false;
+            }
+
+            $tmp = $this->array_search_inner($context, 'cafile', '');
+            if ($tmp) {
+                $options[CURLOPT_CAINFO]         = $tmp;
+            }
+
+            if ($this->array_search_inner($context, 'follow_location', '1')) {
+                $options[CURLOPT_FOLLOWLOCATION] = true;
+            } else {
+                $options[CURLOPT_FOLLOWLOCATION] = false;
+            }
+
+            if ($this->array_search_inner($context, 'method', 'POST')) {
+                $options[CURLOPT_POSTFIELDS] = $this->array_search_inner($context, 'content', '');
+            } else {
+                $url .= '?' . $this->array_search_inner($context, 'content', '');
+            }
+
+            $options[CURLOPT_URL]            = $url;
+            $options[CURLOPT_RETURNTRANSFER] = true;
+            $options[CURLOPT_USERAGENT]      = 'joox/2.0';
+            $options[CURLOPT_CONNECTTIMEOUT] = 10;
+            $options[CURLOPT_VERBOSE]        = 1;
+            $options[CURLOPT_HEADER]         = 1;
+            
+            $headers = array_filter(explode("\r\n", $this->array_search_inner($context, 'header', '')));
+            foreach ($headers as $key => $value) {
+                if (strpos($value, 'Content-Length') !== false) {
+                    unset($headers[$key]);
+                    break;
+                }
+            }
+            $options[CURLOPT_HTTPHEADER] = $headers;
+
+            $conn = curl_init();
+            curl_setopt_array($conn, $options);
+            $response    = curl_exec($conn);
+            $header_size = curl_getinfo($conn, CURLINFO_HEADER_SIZE);
+            $headers     = array_filter(explode("\r\n", substr($response, 0, $header_size)));
+            $content     = substr($response, $header_size);
+            curl_close($conn);
+        } else{
+            $content   = false;
+            $headers   = false;
+        }
+        return array('content' => $content, 'headers' => $headers);
+    }
+
+    /**
+     * Search multi-dimentional array for key
+     * 
+     * @param array $array   The array to look through
+     * @param string $attr   The key to look for
+     * @param string $val    The value to look for
+     * @return mixed         False if not found
+     * 
+    **/
+    function array_search_inner($array, $attr, $val) {
+
+        if (!is_array($array)) {
+            return false;
+        }
+
+        foreach ($array as $key => $inner) {
+            if (!is_array($inner)) {
+                return false;
+            }
+            if (!isset($inner[$attr])) {
+                continue;
+            }
+            if ($inner[$attr] == $val) {
+                return $key;
+            } elseif ($val == "") {
+                return $inner[$attr];
+            }
+        }
+        return false;
     }
 
     /**
@@ -61,11 +162,16 @@ class TinyMVC_Library_HTTPCall {
             $posRight = stripos($inputStr, $delimeterRight, $posLeft + 1);
         }
 
-        $return = substr($inputStr, $posLeft, $posRight - $posLeft);
+        if ($posLeft === false || $posRight === false) {
+            return false;
+        } else {
+            $return = substr($inputStr, $posLeft, $posRight - $posLeft);
+        }
+
         if ($returnRightPos == 0) {
             return $return;
         } else {
-            return array('rightPos'=>$posRight, 'extracted'=>$return);
+            return array('rightPos'=>($posRight + strlen($delimeterRight)), 'extracted'=>$return);
         }
     }
 

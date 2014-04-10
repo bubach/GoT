@@ -6,7 +6,7 @@
 
 $(document).ready(function() {
 
-	$('input.box-text').bind('focus blur', function() {
+	$('input.box-text').on('focus blur', function() {
 		$(this).toggleClass('focus');
 	});
 
@@ -17,5 +17,10 @@ $(document).ready(function() {
 		$(this).find('.overlay').hide();
 		$(this).find('.overlay').next().css({'opacity': 1});
 	});
+
+    jwplayer().onReady(function() {
+    	$('#playerContainer_menu').remove();
+    	$('#playerContainer_view .jwcontrols .jwlogo').after('<img src="/img/logo.gif" class="jooxPlayerLogo">');
+    });
 
 });

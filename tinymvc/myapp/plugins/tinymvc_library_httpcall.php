@@ -68,10 +68,10 @@ class TinyMVC_Library_HTTPCall {
                 $options[CURLOPT_CAINFO]         = $tmp;
             }
 
-            if ($this->array_search_inner($context, 'follow_location', '1')) {
-                $options[CURLOPT_FOLLOWLOCATION] = true;
-            } else {
+            if ($this->array_search_inner($context, 'follow_location', '0')) {
                 $options[CURLOPT_FOLLOWLOCATION] = false;
+            } else {
+                $options[CURLOPT_FOLLOWLOCATION] = true;
             }
 
             if ($this->array_search_inner($context, 'method', 'POST')) {

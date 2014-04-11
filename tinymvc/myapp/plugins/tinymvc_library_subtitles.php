@@ -67,8 +67,9 @@ class TinyMVC_Library_Subtitles {
         $this->controller->load->library('httpcall');
 
         $url = "http://www.opensubtitles.org/sv/subtitleserve/file/".$subtitleId;
+        //$url = "http://dl.opensubtitles.org/sv/download/file/".$subtitleId;
         $return  = $this->controller->httpcall->httpCall($url, array(), "GET", "");
-        
+
         if (mb_detect_encoding($return['content'], "UTF-8, ISO-8859-1") == "ISO-8859-1") {
             return utf8_encode($return['content']);
         } else {

@@ -34,23 +34,25 @@ class Item_Model extends TinyMVC_Model {
             'fileSize'  => $data['size'],
             'fileUrl'   => $this->getItemUrl($itemId),
             'imageUrl'  => $data['screenshot'],
-            'subtitles' => $this->controller->subtitles->getSubtitleIds($data['name'])
+            'subtitles' => $this->controller->subtitles->getSubtitleInfo($data['name'])
         );
         return $outputData;
     }
 
-    function getSubtitleSetting($subtitleIds) {
+    function getSubtitleSetting($subtitleInfo) {
         $output  = "";
         $counter = 1;
-        foreach ($subtitleIds as $id) {
+
+        foreach ($subtitleInfo as $subInfo) {
             if (!empty($output)) {
                 $output .= ",\n";
             } else {
                 $output .= ", tracks: [";
             }
-            $output .= '{ file: "/getSubtitle/'.$id.'.vtt", label: "SWE'.$counter.'", kind: "subtitles" }';
+            $output .= '{ file: "/getSubtitle/'.$subInfo[0].'/'.$subInfo[1].'.vtt", label: "SWE'.$counter.'", kind: "subtitles" }';
             $counter++;
         }
+
         if (!empty($output)) {
             $output .= "]";
         }

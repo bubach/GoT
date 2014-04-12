@@ -11,69 +11,63 @@
 
 class TinyMVC_Library_Subtitles {
 
-    /**
-     * Search opensubtitles.org for subtitles
-     */
-    function getSubtitleIds($fileName) {
+    var $controller = null;
 
+    function __construct() {
         $this->controller = tmvc::instance(null, 'controller');
         $this->controller->load->library('httpcall');
-        $subtitleIds = array();
+    }
+
+    /**
+     * Search opensubtitles.org for subtitles and
+     * return info array with ID and name for each
+     * 
+     * @param  string     filename to search for
+     * @return array      id, name
+     */
+    function getSubtitleInfo($fileName) {
+
+        $subtitleInfo = array();
 
         try {
             $url = "http://www.opensubtitles.org/sv/search/sublanguageid-swe/moviename-";
             $urlReadyName = urlencode(str_replace(".mp4", "", $fileName));
             $return  = $this->controller->httpcall->httpCall($url.$urlReadyName, array(), "GET", "");
-            $html = $return['content'];
 
-            if (strpos($html, '<table id="search_results">') !== FALSE) {
-                $html = $this->controller->httpcall->extractBetweenDelimeters($html, '<table id="search_results">', '<div class="footer upfooter">');
-                $foundOne = TRUE;
-                $count = 0;
-
-                while (strlen($html) && $foundOne && $count < 5) {
-                    $count++;
-                    $result = $this->controller->httpcall->extractBetweenDelimeters($html, 'onclick="servOC(', "/short-on', '#DCF2B8')", 1);
-
-                    if (!empty($result['extracted'])) {
-                        $newRes = $this->controller->httpcall->extractBetweenDelimeters($result['extracted'], "'/sv/subtitles/", "");
-                        if (strlen($newRes) < 1) {
-                            $foundOne = FALSE;
-                            break;
-                        }
-
-                        $url = "http://www.opensubtitles.org/sv/subtitles/".$newRes."/short-on";
-                        $return  = $this->controller->httpcall->httpCall($url, array(), "GET", "");
-                        $newHtml = $return['content'];
-
-                        $idRes = $this->controller->httpcall->extractBetweenDelimeters($newHtml, '<a class="none" href="/sv/subtitleserve/file/', '">');
-                        $subtitleIds[] = $idRes;
-                        $html = substr($html, $result['rightPos']);
-                    } else {
-                        $foundOne = FALSE;
-                    }
-                }
+            preg_match_all("/servOC\(([0-9]+),\'\/\w+\/\w+\/[0-9]+\/([a-z-]+)\/[a-z-]+\',/", $return['content'], $result);
+            foreach ($result[1] as $key => $value) {
+                $subtitleInfo[] = array($value, $result[2][$key]);
             }
-        } catch (Exception $e) { return $subtitleIds; }
-        return $subtitleIds;
+        } catch (Exception $e) { return $subtitleInfo; }
+        return $subtitleInfo;
     }
 
     /**
      * Get subtitle content from opensubtitles.org
+     * by reading in the subtitle page, regexing out
+     * the URL for the actual subtitle file
+     * 
+     * @param  integer    the subtitle ID
+     * @param  string     subtitle name
+     * @return string     utf-8 formatted WEBVTT subtitle string
      */
-    function getSubtitleFile($subtitleId) {
+    function getSubtitleFile($subtitleId, $subtitleName) {
 
-        $this->controller = tmvc::instance(null, 'controller');
-        $this->controller->load->library('httpcall');
+        try {
+            $url    = "http://www.opensubtitles.org/sv/subtitles/".$subtitleId."/".$subtitleName."/short-on";
+            $return = $this->controller->httpcall->httpCall($url, array(), "GET", "");
+            preg_match_all('/\<a class\=\"none\" href\="\/sv\/subtitleserve\/file\/([0-9]+)\"\>/', $return['content'], $result);
 
-        $url = "http://www.opensubtitles.org/sv/subtitleserve/file/".$subtitleId;
-        //$url = "http://dl.opensubtitles.org/sv/download/file/".$subtitleId;
-        $return  = $this->controller->httpcall->httpCall($url, array(), "GET", "");
+            $url     = "http://www.opensubtitles.org/sv/subtitleserve/file/".$result[1][0];
+            $return  = $this->controller->httpcall->httpCall($url, array(), "GET", "");
 
-        if (mb_detect_encoding($return['content'], "UTF-8, ISO-8859-1") == "ISO-8859-1") {
-            return utf8_encode($return['content']);
-        } else {
-            return $return['content'];
+            if (mb_detect_encoding($return['content'], "UTF-8, ISO-8859-1") == "ISO-8859-1") {
+                return utf8_encode("WEBVTT\n\r\n\r".$return['content']);
+            } else {
+                return "WEBVTT\n\r\n\r".$return['content'];
+            }
+        } catch (Exception $e) {
+            return "";
         }
     }
 

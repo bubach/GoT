@@ -11,6 +11,13 @@
 
 class Default_Controller extends TinyMVC_Controller {
 
+    /**
+     * controller main function, serving the startpage
+     * and listing the content from put.io
+     * 
+     * @param / 
+     * 
+     */
 	function index() {
         // load model
         $this->load->model('Itemlist_Model','items');
@@ -28,6 +35,13 @@ class Default_Controller extends TinyMVC_Controller {
 		$this->view->display('index_view');
 	}
 
+    /**
+     * view function, serving the pages with
+     * media player, right now only form put.io
+     * 
+     * @param  /view/ID 
+     * 
+     */
     function view() {
         // parse out fileId from URL
         $this->load->library('uri');
@@ -58,18 +72,35 @@ class Default_Controller extends TinyMVC_Controller {
         $this->view->display('index_view');
     }
 
+    /**
+     * subtitle function, serving up the subtitles
+     * from opensubtitles.org.  formatting as
+     * WEBVTT with correct headers.
+     * 
+     * @param /getSubtitle/ID/NAME
+     * @return WEBVTT formatted utf-8 encoded subtitle text
+     * 
+     */
     function getSubtitle() {
         // parse out fileId from URL
         $this->load->library('uri');
-        $fileId     = $this->uri->uri_to_assoc(3);
-        $subtitleId = $fileId['getSubtitle'];
+        $urlArray     = $this->uri->uri_to_assoc(3);
+        $subtitleId   = $urlArray['getSubtitle'];
+        $subtitleName = $urlArray['name'];
 
         $this->load->library('subtitles');
         header('Content-Type: text/plain; charset=utf-8');
-        echo "WEBVTT\n\r\n\r";
-        echo $this->subtitles->getSubtitleFile($subtitleId);
+        echo $this->subtitles->getSubtitleFile($subtitleId, $subtitleName);
     }
 
+    /**
+     * placeholder search function, should probably base
+     * the search on a JS only solution instead.
+     * 
+     * @param  none
+     * @return nope
+     * 
+     */
     function search() {
         $this->load->library('uri');
 

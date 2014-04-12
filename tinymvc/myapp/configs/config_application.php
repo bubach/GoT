@@ -13,11 +13,11 @@
 /* URL routing, use preg_replace() compatible syntax */
 $config['routing']['search']  = array(
                                     '!/view/(\d+)!',
-                                    '!/getSubtitle/(\d+)(.)vtt!'
+                                    '!/getSubtitle/(\d+)/([a-z-]+)\.vtt!'
                                 );
 $config['routing']['replace'] = array(
                                     '/default/view/${1}',
-                                    '/default/getSubtitle/${1}'
+                                    '/default/getSubtitle/${1}/name/${2}'
                                 );
  
 /* set this to force controller and method instead of using URL params */

@@ -18,10 +18,9 @@ class Item_Model extends TinyMVC_Model {
             $this->controller = tmvc::instance(null, 'controller');
 
             // load libraries
-            $this->controller->load->library('httpcall');
+            $this->controller->load->library('http');
             $this->controller->load->library('putio');
             $this->controller->load->library('subtitles');
-
         }
     }
 

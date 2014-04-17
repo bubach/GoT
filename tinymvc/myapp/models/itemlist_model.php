@@ -16,7 +16,7 @@ class Itemlist_Model extends TinyMVC_Model {
 
         // try to load libraries
         try {
-            $controller->load->library('httpcall');
+            $controller->load->library('http');
             $controller->load->library('putio');
         } catch (Exception $e) {
             return "";

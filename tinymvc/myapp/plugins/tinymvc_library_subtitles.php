@@ -15,7 +15,7 @@ class TinyMVC_Library_Subtitles {
 
     function __construct() {
         $this->controller = tmvc::instance(null, 'controller');
-        $this->controller->load->library('httpcall');
+        $this->controller->load->library('http');
     }
 
     /**
@@ -32,7 +32,7 @@ class TinyMVC_Library_Subtitles {
         try {
             $url = "http://www.opensubtitles.org/sv/search/sublanguageid-swe/moviename-";
             $urlReadyName = urlencode(str_replace(".mp4", "", $fileName));
-            $return  = $this->controller->httpcall->httpCall($url.$urlReadyName, array(), "GET", "");
+            $return  = $this->controller->http->call($url.$urlReadyName, array(), "GET", "");
 
             preg_match_all("/servOC\(([0-9]+),\'\/\w+\/\w+\/[0-9]+\/([a-z-]+)\/[a-z-]+\',/", $return['content'], $result);
             foreach ($result[1] as $key => $value) {
@@ -55,11 +55,11 @@ class TinyMVC_Library_Subtitles {
 
         try {
             $url    = "http://www.opensubtitles.org/sv/subtitles/".$subtitleId."/".$subtitleName."/short-on";
-            $return = $this->controller->httpcall->httpCall($url, array(), "GET", "");
+            $return = $this->controller->http->call($url, array(), "GET", "");
             preg_match_all('/\<a class\=\"none\" href\="\/sv\/subtitleserve\/file\/([0-9]+)\"\>/', $return['content'], $result);
 
             $url     = "http://www.opensubtitles.org/sv/subtitleserve/file/".$result[1][0];
-            $return  = $this->controller->httpcall->httpCall($url, array(), "GET", "");
+            $return  = $this->controller->http->call($url, array(), "GET", "");
 
             if (mb_detect_encoding($return['content'], "UTF-8, ISO-8859-1") == "ISO-8859-1") {
                 return utf8_encode("WEBVTT\n\r\n\r".$return['content']);

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * tinymvc_library_httpcall.php
+ * tinymvc_library_http.php
  *
  * Library for doing HTTP calls with custom headers,
  * and some support functions to manipulate the results.
@@ -10,7 +10,7 @@
  * @author      Christoffer Bubach
  */
 
-class TinyMVC_Library_HTTPCall {
+class TinyMVC_Library_HTTP {
 
     /**
      * Makes an HTTP request
@@ -23,7 +23,7 @@ class TinyMVC_Library_HTTPCall {
      * @return array
      * 
     **/
-    function httpCall($url, $data, $method = "GET", $extraHeaders = "", $streamData = array()) {
+    function call($url, $data, $method = "GET", $extraHeaders = "", $streamData = array()) {
         $dataUrl = http_build_query($data);
         $dataLen = strlen($dataUrl);
 
@@ -51,58 +51,68 @@ class TinyMVC_Library_HTTPCall {
     function url_get_contents($url, $context) {
 
         if (function_exists('file_get_contents') && ini_get('allow_url_fopen')) {
-            $content = file_get_contents($url, false, stream_context_create($context));
-            $headers = $http_response_header;
+            try {
+                $content = @file_get_contents($url, false, stream_context_create($context));
+                $headers = $http_response_header;
+            } catch (Exception $e) {
+                $content = false;
+                $headers = false;
+            }
         } elseif (function_exists('curl_exec')) {
-
-            if ($this->array_search_inner($context, 'verify_peer', true)) {
-                $options[CURLOPT_SSL_VERIFYPEER] = true;
-                $options[CURLOPT_SSL_VERIFYHOST] = 2;
-            } else {
-                $options[CURLOPT_SSL_VERIFYPEER] = false;
-                $options[CURLOPT_SSL_VERIFYHOST] = false;
-            }
-
-            $tmp = $this->array_search_inner($context, 'cafile', '');
-            if ($tmp) {
-                $options[CURLOPT_CAINFO]         = $tmp;
-            }
-
-            if ($this->array_search_inner($context, 'follow_location', '0')) {
-                $options[CURLOPT_FOLLOWLOCATION] = false;
-            } else {
-                $options[CURLOPT_FOLLOWLOCATION] = true;
-            }
-
-            if ($this->array_search_inner($context, 'method', 'POST')) {
-                $options[CURLOPT_POSTFIELDS] = $this->array_search_inner($context, 'content', '');
-            } else {
-                $url .= '?' . $this->array_search_inner($context, 'content', '');
-            }
-
-            $options[CURLOPT_URL]            = $url;
-            $options[CURLOPT_RETURNTRANSFER] = true;
-            $options[CURLOPT_USERAGENT]      = 'joox/2.0';
-            $options[CURLOPT_CONNECTTIMEOUT] = 10;
-            $options[CURLOPT_VERBOSE]        = 1;
-            $options[CURLOPT_HEADER]         = 1;
-            
-            $headers = array_filter(explode("\r\n", $this->array_search_inner($context, 'header', '')));
-            foreach ($headers as $key => $value) {
-                if (strpos($value, 'Content-Length') !== false) {
-                    unset($headers[$key]);
-                    break;
+            try {
+                if ($this->array_search_inner($context, 'verify_peer', true)) {
+                    $options[CURLOPT_SSL_VERIFYPEER] = true;
+                    $options[CURLOPT_SSL_VERIFYHOST] = 2;
+                } else {
+                    $options[CURLOPT_SSL_VERIFYPEER] = false;
+                    $options[CURLOPT_SSL_VERIFYHOST] = false;
                 }
-            }
-            $options[CURLOPT_HTTPHEADER] = $headers;
 
-            $conn = curl_init();
-            curl_setopt_array($conn, $options);
-            $response    = curl_exec($conn);
-            $header_size = curl_getinfo($conn, CURLINFO_HEADER_SIZE);
-            $headers     = array_filter(explode("\r\n", substr($response, 0, $header_size)));
-            $content     = substr($response, $header_size);
-            curl_close($conn);
+                $tmp = $this->array_search_inner($context, 'cafile', '');
+                if ($tmp) {
+                    $options[CURLOPT_CAINFO]         = $tmp;
+                }
+
+                if ($this->array_search_inner($context, 'follow_location', '0')) {
+                    $options[CURLOPT_FOLLOWLOCATION] = false;
+                } else {
+                    $options[CURLOPT_FOLLOWLOCATION] = true;
+                }
+
+                if ($this->array_search_inner($context, 'method', 'POST')) {
+                    $options[CURLOPT_POSTFIELDS] = $this->array_search_inner($context, 'content', '');
+                } else {
+                    $url .= '?' . $this->array_search_inner($context, 'content', '');
+                }
+
+                $options[CURLOPT_URL]            = $url;
+                $options[CURLOPT_RETURNTRANSFER] = true;
+                $options[CURLOPT_USERAGENT]      = 'joox/2.0';
+                $options[CURLOPT_CONNECTTIMEOUT] = 10;
+                $options[CURLOPT_VERBOSE]        = 1;
+                $options[CURLOPT_HEADER]         = 1;
+                
+                $headers = array_filter(explode("\r\n", $this->array_search_inner($context, 'header', '')));
+                foreach ($headers as $key => $value) {
+                    if (strpos($value, 'Content-Length') !== false) {
+                        unset($headers[$key]);
+                        break;
+                    }
+                }
+                $options[CURLOPT_HTTPHEADER] = $headers;
+
+                $conn = curl_init();
+                curl_setopt_array($conn, $options);
+                $response    = curl_exec($conn);
+                $header_size = curl_getinfo($conn, CURLINFO_HEADER_SIZE);
+                $headers     = array_filter(explode("\r\n", substr($response, 0, $header_size)));
+                $content     = substr($response, $header_size);
+                curl_close($conn);
+
+            } catch (Exception $e) {
+                $content = false;
+                $headers = false;
+            }
         } else{
             $content   = false;
             $headers   = false;
@@ -144,9 +154,9 @@ class TinyMVC_Library_HTTPCall {
     /**
      * Get string between two strings
      * 
-     * @param string $inputStr           Input string to search
-     * @param string $delimeterLeft      Substring to the left, 0 = start of string
-     * @param string $delimeterRight     Substring to the right, 0 = end of string
+     * @param  string $inputStr           Input string to search
+     * @param  string $delimeterLeft      Substring to the left, 0 = start of string
+     * @param  string $delimeterRight     Substring to the right, 0 = end of string
      * @return string
      * 
     **/
